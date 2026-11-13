@@ -1,0 +1,453 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090b12">
+<title>GO VIRAL 2.0 | AI Video Studio</title>
+<style>
+:root {
+  --bg:#090b12;
+  --panel:#111521;
+  --panel2:#171d2b;
+  --line:#252d3e;
+  --text:#f5f7ff;
+  --muted:#929bb0;
+  --purple:#8857ff;
+  --pink:#ed4eae;
+  --green:#47dfa2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:Inter,Arial,sans-serif;line-height:1.6;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.nav{
+  height:76px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 6%;
+  border-bottom:1px solid var(--line);
+  background:#090b12ed;position:sticky;top:0;z-index:10;
+}
+.logo{font-size:24px;font-weight:900;letter-spacing:-1px}
+.logo span{color:var(--pink)}
+.navlinks{display:flex;gap:28px;color:var(--muted);font-size:14px}
+.navlinks a:hover{color:white}
+.btn{
+  border:0;border-radius:10px;padding:12px 19px;
+  background:linear-gradient(110deg,var(--purple),var(--pink));
+  color:white;font-weight:750;display:inline-block;
+}
+.btn:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.btn.secondary{background:var(--panel2);border:1px solid var(--line)}
+.btn.small{padding:8px 14px;font-size:13px}
+.hero{
+  min-height:580px;padding:100px 7% 80px;
+  text-align:center;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 50% 20%,#572e9b55,transparent 55%);
+}
+.eyebrow{
+  color:#d2b8ff;background:#281b43;border:1px solid #54368b;
+  border-radius:30px;padding:7px 15px;font-size:12px;
+  font-weight:800;letter-spacing:1px;margin-bottom:25px;
+}
+h1{font-size:clamp(42px,7vw,76px);line-height:1.08;
+  letter-spacing:-3px;max-width:950px}
+.gradient{
+  background:linear-gradient(90deg,#a77aff,#ff6ac3);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p{color:var(--muted);font-size:18px;max-width:650px;margin:24px 0 30px}
+.hero-actions{display:flex;gap:13px;flex-wrap:wrap;justify-content:center}
+.trust{color:var(--muted);font-size:12px;margin-top:35px}
+.section{padding:80px 7%;max-width:1450px;margin:auto}
+.section-heading{text-align:center;margin-bottom:45px}
+.section-heading h2{font-size:36px;letter-spacing:-1px}
+.section-heading p{color:var(--muted);margin-top:10px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:17px;padding:25px;
+}
+.card h3{font-size:18px;margin:12px 0 8px}
+.card p{font-size:14px;color:var(--muted)}
+.feature-icon{
+  width:45px;height:45px;border-radius:13px;
+  background:#29203f;display:grid;place-items:center;font-size:22px;
+}
+.workspace{
+  display:grid;grid-template-columns:220px 1fr;
+  max-width:1300px;margin:auto;border:1px solid var(--line);
+  border-radius:18px;overflow:hidden;background:#0d111b;
+}
+.sidebar{background:#101521;padding:22px 15px;border-right:1px solid var(--line)}
+.side-title{font-size:11px;color:var(--muted);margin:20px 10px 9px}
+.side-link{
+  padding:11px 12px;border-radius:9px;color:#aab2c4;
+  font-size:13px;cursor:pointer;margin:3px 0;
+}
+.side-link:hover,.side-link.active{background:#28203f;color:white}
+.work-main{padding:28px;min-width:0}
+.work-top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px}
+.work-top h2{font-size:25px}
+.muted{color:var(--muted);font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:23px}
+.stat{background:var(--panel);padding:17px;border:1px solid var(--line);border-radius:12px}
+.stat strong{font-size:25px;display:block}
+.stat span{font-size:12px;color:var(--muted)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:18px}
+.panel h3{margin-bottom:5px}
+.upload{
+  border:2px dashed #45405f;border-radius:13px;
+  padding:35px 15px;text-align:center;margin-top:17px;
+  background:#171528;cursor:pointer;
+}
+.upload:hover{border-color:var(--purple)}
+.upload-icon{font-size:38px}
+.upload p{color:var(--muted);font-size:13px;margin:6px 0 15px}
+.video-preview{width:100%;max-height:350px;border-radius:12px;background:#000;margin-top:15px}
+.hidden{display:none!important}
+.field{margin-top:17px}
+.field label{font-size:13px;color:#c5cada;display:block;margin-bottom:7px}
+.field input,.field select{
+  width:100%;padding:12px;background:#0b101b;
+  border:1px solid var(--line);border-radius:9px;color:white;
+}
+.tools-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.tool{
+  border:1px solid var(--line);background:#171d2b;
+  border-radius:9px;padding:10px 13px;color:#dce0ed;font-size:13px;
+}
+.tool.selected{border-color:var(--purple);background:#29203f}
+.progress{height:8px;background:#252c3b;border-radius:10px;overflow:hidden;margin-top:14px}
+.progress div{height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--pink));transition:width .3s}
+.result{background:#10251f;border:1px solid #285542;border-radius:10px;padding:15px;margin-top:15px;color:#a8f2cf;font-size:13px}
+.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.price-card{background:var(--panel);border:1px solid var(--line);padding:28px;border-radius:17px}
+.price-card.popular{border-color:var(--purple);box-shadow:0 0 30px #8857ff20}
+.price{font-size:37px;font-weight:850;margin:15px 0}
+.price small{font-size:13px;color:var(--muted);font-weight:400}
+.price-card ul{list-style:none;margin:20px 0;color:#c4cada;font-size:14px}
+.price-card li{padding:6px 0}
+.price-card li:before{content:"✓";color:var(--green);margin-right:10px}
+footer{border-top:1px solid var(--line);padding:35px 7%;color:var(--muted);font-size:13px;text-align:center}
+.notice{font-size:12px;color:var(--muted);margin-top:12px}
+@media(max-width:850px){
+ .grid,.pricing{grid-template-columns:1fr 1fr}
+ .workspace{grid-template-columns:1fr}
+ .sidebar{display:flex;overflow-x:auto;gap:5px;border-right:0;border-bottom:1px solid var(--line)}
+ .side-title{display:none}
+ .side-link{white-space:nowrap}
+}
+@media(max-width:600px){
+ .nav{padding:0 4%;height:65px}
+ .navlinks{display:none}
+ .hero{padding:75px 5%}
+ h1{letter-spacing:-1.5px}
+ .section{padding:55px 5%}
+ .grid,.pricing{grid-template-columns:1fr}
+ .stats{grid-template-columns:1fr}
+ .work-main{padding:15px}
+ .work-top{align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="logo" href="#">GO <span>VIRAL.</span></a>
+  <nav class="navlinks">
+    <a href="#features">Features</a>
+    <a href="#studio">AI Studio</a>
+    <a href="#pricing">Pricing</a>
+  </nav>
+  <a class="btn small" href="#studio">Open Studio ↗</a>
+</header>
+
+<main>
+<section class="hero">
+  <div class="eyebrow">✦ THE NEXT GENERATION OF VIDEO CREATION</div>
+  <h1>Turn ordinary videos into <span class="gradient">viral content.</span></h1>
+  <p>Your AI-powered video studio. Upload footage, create short clips, prepare captions and build content for every social platform.</p>
+  <div class="hero-actions">
+    <a class="btn" href="#studio">Start Creating Free →</a>
+    <a class="btn secondary" href="#features">Explore Features</a>
+  </div>
+  <div class="trust">BUILT FOR YOUTUBE · TIKTOK · INSTAGRAM · FACEBOOK</div>
+</section>
+
+<section class="section" id="features">
+  <div class="section-heading">
+    <h2>Your entire creative studio. <span class="gradient">One platform.</span></h2>
+    <p>Everything creators need to produce better videos.</p>
+  </div>
+  <div class="grid">
+    <article class="card"><div class="feature-icon">✂️</div><h3>AI Video Clipping</h3><p>Prepare short-form clips from longer videos and identify moments worth editing.</p></article>
+    <article class="card"><div class="feature-icon">💬</div><h3>Smart Captions</h3><p>Prepare subtitles and engaging captions for your social media content.</p></article>
+    <article class="card"><div class="feature-icon">🎬</div><h3>Video Studio</h3><p>Preview footage and prepare your content before exporting.</p></article>
+    <article class="card"><div class="feature-icon">📱</div><h3>Social Formats</h3><p>Prepare content for vertical, square and widescreen platforms.</p></article>
+    <article class="card"><div class="feature-icon">🚀</div><h3>Creator Workflow</h3><p>Bring your video preparation tools together in one workspace.</p></article>
+    <article class="card"><div class="feature-icon">☁️</div><h3>Creator Cloud</h3><p>A foundation for managing projects and accessing your content online.</p></article>
+  </div>
+</section>
+
+<section class="section" id="studio">
+  <div class="section-heading">
+    <h2>Welcome to your <span class="gradient">AI Studio.</span></h2>
+    <p>Upload a video and explore your creator workspace.</p>
+  </div>
+
+  <div class="workspace">
+    <aside class="sidebar">
+      <div class="side-link active" data-page="dashboard">⌂ Dashboard</div>
+      <div class="side-link" data-page="clipping">✂ AI Clipping</div>
+      <div class="side-link" data-page="captions">💬 Captions</div>
+      <div class="side-link" data-page="editor">🎬 Video Editor</div>
+      <div class="side-link" data-page="export">📤 Export</div>
+      <div class="side-title">WORKSPACE</div>
+      <div class="side-link" data-page="projects">▤ My Projects</div>
+    </aside>
+
+    <div class="work-main">
+      <div class="work-top">
+        <div><h2 id="pageTitle">Creator Dashboard</h2><p class="muted" id="pageSubtitle">Your creative journey starts here.</p></div>
+        <span class="eyebrow" style="margin:0">FREE WORKSPACE</span>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><strong id="videoCount">0</strong><span>Videos uploaded</span></div>
+        <div class="stat"><strong id="projectCount">0</strong><span>Projects created</span></div>
+        <div class="stat"><strong>Ready</strong><span>Studio status</span></div>
+      </div>
+
+      <div class="panel">
+        <h3>Upload your video</h3>
+        <p class="muted">Choose a video from your computer to preview it in your studio.</p>
+        <label class="upload" for="videoFile">
+          <div class="upload-icon">☁️</div>
+          <strong>Drop your video here or browse files</strong>
+          <p>MP4, MOV, WEBM supported by your browser</p>
+          <span class="btn small">Choose Video</span>
+        </label>
+        <input id="videoFile" type="file" accept="video/*" hidden>
+        <video id="videoPreview" class="video-preview hidden" controls></video>
+        <div id="fileName" class="muted" style="margin-top:10px"></div>
+      </div>
+
+      <div class="panel" id="editingPanel">
+        <h3 id="toolTitle">AI Video Tools</h3>
+        <p class="muted" id="toolDescription">Choose a tool to prepare your next video.</p>
+
+        <div class="tools-row">
+          <button class="tool selected" data-tool="clip">✂ Clip Ideas</button>
+          <button class="tool" data-tool="caption">💬 Caption Ideas</button>
+          <button class="tool" data-tool="format">📱 Video Format</button>
+          <button class="tool" data-tool="title">✨ Video Titles</button>
+        </div>
+
+        <div class="field">
+          <label for="videoTopic">Describe your video or topic</label>
+          <input id="videoTopic" placeholder="Example: My podcast about entrepreneurship">
+        </div>
+
+        <div class="field">
+          <label for="videoFormat">Preferred format</label>
+          <select id="videoFormat">
+            <option value="9:16 vertical">9:16 Vertical – TikTok / Reels / Shorts</option>
+            <option value="16:9 widescreen">16:9 Widescreen – YouTube</option>
+            <option value="1:1 square">1:1 Square – Social media</option>
+          </select>
+        </div>
+
+        <button class="btn" id="generateBtn" style="margin-top:20px">Generate Ideas →</button>
+        <div id="progress" class="progress hidden"><div id="progressBar"></div></div>
+        <div id="result" class="result hidden"></div>
+        <p class="notice">These are locally generated creative suggestions, not AI analysis of your uploaded footage.</p>
+      </div>
+
+      <div class="panel">
+        <h3>Your project library</h3>
+        <p class="muted" id="projectMessage">Your uploaded video projects will appear here during this session.</p>
+        <div id="projectList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="section-heading">
+    <h2>Choose your creator plan.</h2>
+    <p>Start free and grow when you're ready.</p>
+  </div>
+  <div class="pricing">
+    <article class="price-card">
+      <h3>Free</h3><p class="muted">Explore the studio.</p>
+      <div class="price">R0 <small>/ month</small></div>
+      <ul><li>Local video preview</li><li>Creative suggestions</li><li>Basic workspace</li></ul>
+      <a class="btn secondary" href="#studio">Start Free</a>
+    </article>
+    <article class="price-card popular">
+      <div class="eyebrow" style="display:inline-block;margin:0 0 12px">MOST POPULAR</div>
+      <h3>Creator Pro</h3><p class="muted">For serious creators.</p>
+      <div class="price">R199 <small>/ month*</small></div>
+      <ul><li>Planned AI editing tools</li><li>Planned automatic captions</li><li>Advanced export options</li><li>Cloud project storage</li></ul>
+      <button class="btn" onclick="notifyPlan('Creator Pro')">Choose Pro</button>
+    </article>
+    <article class="price-card">
+      <h3>Studio</h3><p class="muted">For teams and businesses.</p>
+      <div class="price">R499 <small>/ month*</small></div>
+      <ul><li>Planned premium AI tools</li><li>Team collaboration</li><li>Advanced workflows</li><li>Priority support</li></ul>
+      <button class="btn secondary" onclick="notifyPlan('Studio')">Choose Studio</button>
+    </article>
+  </div>
+  <p class="notice" style="text-align:center">*Illustrative launch pricing. Paid subscriptions are not activated yet.</p>
+</section>
+</main>
+
+<footer>
+  <div class="logo">GO <span>VIRAL.</span></div>
+  <p>Make content. Create impact. Go Viral.</p>
+  <p style="margin-top:12px">© 2026 GO VIRAL. All rights reserved.</p>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+let selectedTool = "clip";
+let uploadedVideo = null;
+let projects = [];
+
+const toolDescriptions = {
+ clip:["AI Clipping Ideas","Get suggestions for short-form moments to look for in your footage."],
+ caption:["Smart Caption Ideas","Prepare caption ideas to accompany your video."],
+ format:["Video Format Planner","Choose the format that suits your target platform."],
+ title:["Viral Title Ideas","Explore attention-grabbing title suggestions."]
+};
+
+$("videoFile").addEventListener("change", function(){
+ const file = this.files[0];
+ if(!file) return;
+ if(uploadedVideo) URL.revokeObjectURL(uploadedVideo);
+ uploadedVideo = URL.createObjectURL(file);
+ $("videoPreview").src = uploadedVideo;
+ $("videoPreview").classList.remove("hidden");
+ $("fileName").textContent = "Selected: " + file.name;
+ $("videoCount").textContent = "1";
+ projects = [file.name];
+ $("projectCount").textContent = "1";
+ $("projectList").innerHTML = "<p class='muted' style='margin-top:12px'>🎬 "+escapeHTML(file.name)+"</p>";
+ $("projectMessage").textContent = "Video loaded successfully for this session.";
+});
+
+function escapeHTML(value){
+ return value.replace(/[&<>"']/g, c => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
+
+document.querySelectorAll(".tool").forEach(button=>{
+ button.addEventListener("click",()=>{
+  document.querySelectorAll(".tool").forEach(b=>b.classList.remove("selected"));
+  button.classList.add("selected");
+  selectedTool = button.dataset.tool;
+  $("toolTitle").textContent = toolDescriptions[selectedTool][0];
+  $("toolDescription").textContent = toolDescriptions[selectedTool][1];
+  $("result").classList.add("hidden");
+ });
+});
+
+document.querySelectorAll(".side-link[data-page]").forEach(link=>{
+ link.addEventListener("click",()=>{
+  document.querySelectorAll(".side-link").forEach(x=>x.classList.remove("active"));
+  link.classList.add("active");
+  const page = link.dataset.page;
+  const names = {
+   dashboard:"Creator Dashboard",
+   clipping:"AI Clipping Studio",
+   captions:"Caption Studio",
+   editor:"Video Editor",
+   export:"Export Centre",
+   projects:"My Projects"
+  };
+  $("pageTitle").textContent = names[page];
+  $("pageSubtitle").textContent = "Your GO VIRAL creative workspace.";
+  const tools = {clipping:"clip",captions:"caption",editor:"format",export:"format"};
+  if(tools[page]){
+   selectedTool = tools[page];
+   document.querySelectorAll(".tool").forEach(b=>{
+    b.classList.toggle("selected",b.dataset.tool===selectedTool);
+   });
+   $("toolTitle").textContent = toolDescriptions[selectedTool][0];
+   $("toolDescription").textContent = toolDescriptions[selectedTool][1];
+  }
+  if(page==="projects") $("projectMessage").textContent =
+   projects.length ? "Your current session project is listed below." : "No projects uploaded yet.";
+  if(page==="dashboard") $("projectMessage").textContent = "Your uploaded video projects will appear here during this session.";
+  $("editingPanel").scrollIntoView({behavior:"smooth",block:"nearest"});
+ });
+});
+
+$("generateBtn").addEventListener("click",()=>{
+ const topic = $("videoTopic").value.trim() || "your next video";
+ const format = $("videoFormat").value;
+ const button = $("generateBtn");
+ button.disabled = true;
+ button.textContent = "Preparing...";
+ $("progress").classList.remove("hidden");
+ $("progressBar").style.width = "0%";
+ $("result").classList.add("hidden");
+ let progress = 0;
+ const interval = setInterval(()=>{
+  progress += 20;
+  $("progressBar").style.width = progress + "%";
+  if(progress>=100){
+   clearInterval(interval);
+   button.disabled = false;
+   button.textContent = "Generate Ideas →";
+   $("progress").classList.add("hidden");
+   showIdeas(topic,format);
+  }
+ },120);
+});
+
+function showIdeas(topic,format){
+ const safe = escapeHTML(topic);
+ let html = "";
+ if(selectedTool==="clip"){
+  html = "<strong>Clip ideas for: "+safe+"</strong><br><br>"+
+   "01 — The strongest opening statement<br>"+
+   "02 — A surprising or unexpected moment<br>"+
+   "03 — Your most useful tip or insight<br>"+
+   "04 — A memorable reaction or story<br>"+
+   "05 — A powerful closing takeaway";
+ }else if(selectedTool==="caption"){
+  html = "<strong>Caption ideas for: "+safe+"</strong><br><br>"+
+   "01 — Here's something you need to know about "+safe+".<br>"+
+   "02 — Stop scrolling. This could change how you think.<br>"+
+   "03 — Save this and share it with someone who needs it.";
+ }else if(selectedTool==="format"){
+  html = "<strong>Recommended video setup</strong><br><br>"+
+   "Selected format: "+format+"<br>"+
+   "Keep your main subject centred and leave space for captions.<br>"+
+   "Preview your footage before exporting.";
+ }else{
+  html = "<strong>Title ideas for: "+safe+"</strong><br><br>"+
+   "01 — Everything You Need to Know About "+safe+"<br>"+
+   "02 — I Wish I Knew This Earlier<br>"+
+   "03 — The Truth About "+safe+"<br>"+
+   "04 — 5 Things That Could Change Everything";
+ }
+ $("result").innerHTML = html;
+ $("result").classList.remove("hidden");
+}
+
+function notifyPlan(plan){
+ alert(plan+" subscription checkout is not activated yet. Contact the GO VIRAL team for launch updates.");
+}
+</script>
+</body>
+</html>
